@@ -9,20 +9,23 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-
     "affected:apps": "./node_modules/.bin/nx affected apps",
     "affected:build": "./node_modules/.bin/nx affected build",
     "affected:e2e": "./node_modules/.bin/nx affected e2e",
-
     "format": "./node_modules/.bin/nx format write",
     "format:write": "./node_modules/.bin/nx format write",
     "format:check": "./node_modules/.bin/nx format check",
-
     "update": "./node_modules/.bin/nx update",
     "update:check": "./node_modules/.bin/nx update check",
     "update:skip": "./node_modules/.bin/nx update skip",
-
-    "postinstall": "./node_modules/.bin/nx postinstall"
+    "postinstall": "./node_modules/.bin/nx postinstall",
+    "clear-web-container": "docker stop web && docker rm web",
+    "clear-api-containers": "docker stop api0 && docker rm api0 && docker stop api1 && docker rm api1",
+    "clear-web-image": "docker rmi nxproduction_web",
+    "clear-api-image": "docker rmi nxproduction_api0 && docker rmi nxproduction_api1",
+    "clear-docker": "npm run clear-web-container && npm run clear-web-image && npm run clear-api-containers && npm run clear-api-image",
+    "build-prod": "ng build --prod --app=cars && gzip -r dist/*.js",
+    "serve-prod": "npm run build-prod && docker-compose up"
   },
   "private": true,
   "dependencies": {
